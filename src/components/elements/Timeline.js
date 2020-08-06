@@ -3,6 +3,7 @@ import TimelineItem from "./TimelineItem";
 import Resume from "../../resume.json";
 
 function Timeline() {
+    let years = [];
   return (
     <div className="timeline is-centered">
       <header className="timeline-header">
@@ -19,30 +20,39 @@ function Timeline() {
           return new Date(item.startDate).getFullYear();
         })
         .map((year, i) => {
-          let content = [];
-          content.push(
-            <header key={i} className="timeline-header">
-              <span className="tag is-success">{year}</span>
-            </header>
-          );
-          content.push(
-            Resume.work
-              .filter(work => new Date(work.startDate).getFullYear() === year)
-              .map((item, j) => {
-                return (
-                  <TimelineItem
-                    key={j}
-                    date={new Date(item.startDate).toLocaleString("en-UK", {
-                      month: "long",
-                      year: "numeric"
-                    })}
-                    company={item.company}
-                    summary={item.summary}
-                  />
+            let content = [];
+            if (years.indexOf(year) === -1) {
+                years.push(year);
+
+                content.push(
+                    <header key={i} className="timeline-header">
+                        <span className="tag is-success">{year}</span>
+                    </header>
                 );
-              })
-          );
-          return content;
+                content.push(
+                    Resume.work
+                        .filter(work => new Date(work.startDate).getFullYear() === year)
+                        .map((item, j) => {
+                            return (
+                                <TimelineItem
+                                    key={j}
+                                    date={new Date(item.startDate).toLocaleString("en-UK", {
+                                        month: "long",
+                                        year: "numeric"
+                                    })}
+                                    endDate={new Date(item.endDate).toLocaleString("en-UK", {
+                                        month: "long",
+                                        year: "numeric"
+                                    })}
+                                    company={item.company}
+                                    summary={item.summary}
+                                    position={item.position}
+                                />
+                            );
+                        })
+                );
+            }
+            return content;
         })}
     </div>
   );
