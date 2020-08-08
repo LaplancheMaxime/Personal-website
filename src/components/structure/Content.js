@@ -12,7 +12,7 @@ function Content() {
       <Skills />
       <Experience />
       <Education />
-      <Articles />
+      {/*<Articles />*/}
     </main>
   );
 }
