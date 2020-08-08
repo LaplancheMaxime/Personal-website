@@ -4,7 +4,7 @@ import Timeline from "../elements/EducationTimeLine";
 
 function Experience() {
     return (
-        <section className="section" id="experience">
+        <section className="section" id="education">
             <div className="container">
                 <h1 className="title">Education</h1>
                 <Timeline />
