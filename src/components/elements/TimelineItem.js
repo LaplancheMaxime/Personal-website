@@ -7,7 +7,6 @@ function TimelineItem(props) {
         <img src="" alt="" />
       </div>
       <div className="timeline-content">
-          {console.log(props.endDate)}
           {props.endDate === 'Invalid Date' &&
             <p className="heading">{props.date} - now </p>
           }
