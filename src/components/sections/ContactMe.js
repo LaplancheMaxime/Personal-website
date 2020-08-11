@@ -6,7 +6,7 @@ function ContactMe() {
     return (
         <section className="section" id="contactMe">
             <div className="container">
-                <h1 className="title">Contact me</h1>
+                <h1 className="title">Contact</h1>
                 <div className="contacts column has-text-centered">
                     <ContactsList
                         Contacts={Resume.basics.contacts}
