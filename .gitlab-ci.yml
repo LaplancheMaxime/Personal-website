@@ -1,0 +1,116 @@
+image: edbizarro/gitlab-ci-pipeline-php:7.2
+
+# Speed up builds
+cache:
+  key: $CI_BUILD_REF_NAME # changed to $CI_COMMIT_REF_NAME in Gitlab 9.x
+  paths:
+    - node_modules
+    - .yarn
+
+stages:
+    - build
+    - docker
+    - deploy
+    - deploy_server
+
+#variables:
+    # Configure mysql service (https://hub.docker.com/_/mysql/)
+
+build:
+  stage: build
+  script:
+    - npm install
+  except:
+    - master
+
+build:master:
+  stage: build
+  script:
+    - cp .env.prod .env
+    - bin/console about
+    - yarn config set cache-folder .yarn
+    - yarn install --pure-lockfile
+    - composer install --prefer-dist --no-ansi --no-interaction --no-dev --optimize-autoloader
+#    - bin/console doctrine:migrations:diff
+#    - bin/console doctrine:migrations:migrate
+    - bin/console cache:clear --env=prod
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"'
+      when: always
+
+docker:build:
+    stage: docker
+    image: docker:19.03.11
+    services:
+      - docker:19.03.11-dind
+    dependencies:
+      - build
+    before_script:
+      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    script:
+      - \cp .env.prod .env
+      - docker build --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+      - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    after_script:
+      - docker logout $CI_REGISTRY
+    rules:
+      - if: '$CI_COMMIT_REF_NAME != "master"'
+        when: on_success
+      - if: '$CI_COMMIT_REF_NAME == "develop"'
+        when: manual
+
+master:docker:latest:
+    stage: deploy
+    image: docker:19.03.11
+    variables:
+      GIT_STRATEGY: none
+    dependencies:
+      - docker:build
+      - build:master
+    services:
+      - docker:dind
+    before_script:
+      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    script:
+      - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
+      - docker push $CI_REGISTRY_IMAGE:latest
+    rules:
+      - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"'
+        when: on_success
+
+
+docker:push:tag:
+  image: docker:19.03.11
+  variables:
+    # Again, we do not need the source code here. Just playing with Docker.
+    GIT_STRATEGY: none
+  stage: deploy
+  only:
+    # We want this job to be run on tags only.
+    - tags
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  except:
+    - master
+
+docker:deploy:
+  stage: deploy_server
+  image: registry.gitlab.com/mlaplanche/gestionformation-sdis14/docker-compose:19.03.11
+  before_script:
+    - docker info
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker-compose -f docker-compose.yml build
+    - docker-compose -f docker-compose.yml pull
+    - docker-compose -f docker-compose.yml up -d
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"'
+      when: on_success
+  tags:
+    - docker
+    - personal
