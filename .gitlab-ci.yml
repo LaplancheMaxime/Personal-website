@@ -41,7 +41,6 @@ docker:build:
     before_script:
       - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     script:
-      - \cp .env.prod .env
       - docker build --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
       - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
     after_script:
