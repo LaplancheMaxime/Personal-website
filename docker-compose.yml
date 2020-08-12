@@ -11,9 +11,7 @@ services:
       - nginx-proxy
       - default-network
     tty: true
-    container_name: gesion_formation_SDIS14
-    depends_on:
-      - db
+    container_name: personal-website
 
 networks:
   default-network:
