@@ -1,0 +1,28 @@
+#Specify a base image
+FROM node:alpine as build
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+#Setup working directory
+WORKDIR '/app'
+
+#Copy the dependencies file
+COPY package.json .
+COPY package-lock.json ./
+
+#Install dependencies
+RUN npm ci --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+COPY . ./
+
+#Copy remaining files
+COPY . .
+
+# Build application 
+RUN npm run build
+
+# production environment
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

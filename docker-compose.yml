@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  app:
+    image: registry.gitlab.com/mlaplanche/personal-website:latest
+    restart: always
+    environment:
+      - "VIRTUAL_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
+      - "LETSENCRYPT_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
+    networks:
+      - nginx-proxy
+      - default-network
+    tty: true
+    container_name: personal-website
+
+networks:
+  default-network:
+  nginx-proxy:
+    external: true
+  default:
+    external:
+      name : nginx-proxy
