@@ -13,7 +13,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "lint": "eslint src/**/*.js src/**/*.jsx",
+    "lint": "eslint src/**/*.js",
     "deploy": "gh-pages -b master -d build"
   },
   "eslintConfig": {
