@@ -1,4 +1,4 @@
-image: edbizarro/gitlab-ci-pipeline-php:7.2
+image: node:alpine
 
 # Speed up builds
 cache:
@@ -21,6 +21,7 @@ build:
   stage: build
   script:
     - npm install
+    - npm run lint
   except:
     - master
 
