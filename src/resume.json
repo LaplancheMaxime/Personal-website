@@ -33,11 +33,11 @@
     ],
     "contacts": [
       {
-        "x_icon": "fas fa-3x fa-envelope",
+        "x_icon": "fas fa-envelope",
         "text": "laplanche.maxime@outlook.fr"
       },
       {
-        "x_icon": "fas fa-3x fa-phone-alt",
+        "x_icon": "fas fa-phone-alt",
         "text": "+33 06 83 40 00 82"
       }
     ]
