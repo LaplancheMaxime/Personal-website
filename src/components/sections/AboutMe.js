@@ -1,6 +1,7 @@
 import React from "react";
 import Badge from "../elements/Badge";
 import Resume from "../../resume.json";
+import Contact from "../elements/Contact";
 
 function AboutMe() {
   return (
@@ -27,6 +28,15 @@ function AboutMe() {
             {Resume.interests.map((value, index) => {
               return (
                 <Badge key={index} text={value.name} faIcon={value.x_icon} />
+              );
+            })}
+          </div>
+        </div>
+        <div className="container contacts">
+          <div className="field is-grouped is-grouped-multiline has-text-centered has-text-white ">
+            {Resume.basics.contacts.map((value, index) => {
+              return (
+                  <Contact key={index} icon={value.x_icon} text={value.text}/>
               );
             })}
           </div>

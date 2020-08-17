@@ -24,6 +24,7 @@ html {
 .contacts {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 }
 .contact {
     margin-left: 20px;
@@ -36,7 +37,6 @@ html {
 }
 
 .contact .svg-inline--fa {
-    vertical-align: middle;
     margin-right: 10px;
 }
 
