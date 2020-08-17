@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 
 function Badge(props) {
   const faIcon = "fas fa-1x " + props.faIcon;
@@ -13,5 +15,10 @@ function Badge(props) {
     </div>
   );
 }
+
+Badge.propTypes = {
+    faIcon: PropTypes.string,
+    text: PropTypes.string
+};
 
 export default Badge;

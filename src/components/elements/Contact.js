@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 
 function Contact(props) {
 
@@ -18,5 +19,10 @@ function Contact(props) {
         </div>
     );
 }
+
+Contact.propTypes = {
+    text: PropTypes.string,
+    icon: PropTypes.string
+};
 
 export default Contact;

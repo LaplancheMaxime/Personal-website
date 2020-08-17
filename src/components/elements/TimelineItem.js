@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function TimelineItem(props) {
   return (
@@ -21,5 +22,13 @@ function TimelineItem(props) {
     </div>
   );
 }
+
+TimelineItem.propTypes = {
+    endDate: PropTypes.string,
+    date: PropTypes.string,
+    company: PropTypes.string,
+    position: PropTypes.string,
+    summary: PropTypes.string
+};
 
 export default TimelineItem;

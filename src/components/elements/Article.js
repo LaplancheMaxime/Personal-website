@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function Article(props) {
   return (
@@ -36,4 +37,10 @@ function Article(props) {
   );
 }
 
+Article.propTypes = {
+    url: PropTypes.string,
+    title: PropTypes.string,
+    image: PropTypes.string,
+    extract: PropTypes.string,
+};
 export default Article;
