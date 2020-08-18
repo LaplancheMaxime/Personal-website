@@ -1,5 +1,7 @@
 import React from "react";
 import Contact from "./Contact";
+import PropTypes from "prop-types";
+import Resume from "../../resume";
 
 function ContactsList(props) {
     return (
@@ -21,5 +23,9 @@ function buildContact(Contacts) {
     });
     return contactView;
 }
+
+ContactsList.propTypes = {
+    Contacts: PropTypes.objectOf(Resume.basics.contacts)
+};
 
 export default ContactsList;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 var progress = {
   Advanced: 100,
@@ -21,5 +22,10 @@ function ProgressBar(props) {
     </div>
   );
 }
+
+ProgressBar.propTypes = {
+    text: PropTypes.string,
+    level: PropTypes.string,
+};
 
 export default ProgressBar;
