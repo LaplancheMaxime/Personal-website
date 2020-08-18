@@ -1,5 +1,7 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
+import PropTypes from "prop-types";
+import Resume from "../../resume";
 
 function SkillsList(props) {
   const skills = props.skills;
@@ -19,5 +21,9 @@ function buildSkills(skills) {
   });
   return progressBars;
 }
+
+SkillsList.propTypes = {
+  skills: PropTypes.objectOf(Resume.skills)
+};
 
 export default SkillsList;

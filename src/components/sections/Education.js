@@ -1,16 +1,16 @@
 import React from "react";
 
-import Timeline from "../elements/EducationTimeLine";
+import EducationTimeline from "../elements/EducationTimeLine";
 
-function Experience() {
+function Education() {
     return (
         <section className="section" id="education">
             <div className="container">
                 <h1 className="title">Education</h1>
-                <Timeline />
+                <EducationTimeline />
             </div>
         </section>
     );
 }
 
-export default Experience;
+export default Education;
