@@ -2,7 +2,7 @@ import React from "react";
 import TimelineItem from "./TimelineItem";
 import Resume from "../../resume.json";
 
-function Timeline() {
+function EducationTimeline() {
     let years = [];
     return (
         <div className="timeline is-centered">
@@ -58,4 +58,4 @@ function Timeline() {
     );
 }
 
-export default Timeline;
+export default EducationTimeline;
