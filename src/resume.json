@@ -44,11 +44,20 @@
   },
   "work": [
     {
+      "company": "MLTech",
+      "position": "Self-employed",
+      "website": "https://mltech.fr/",
+      "startDate": "2020-12-16",
+      "endDate": "",
+      "summary": "Having the desire to undertake I decided to launch my activity in the development and IT training.",
+      "highlights": []
+    },
+    {
       "company": "Cotral Lab",
       "position": "Full stack developer and DevOps",
       "website": "https://www.cotral.fr",
       "startDate": "2016-09-05",
-      "endDate": "",
+      "endDate": "2020-12-15",
       "summary": "Full stack and DevOps developer in a team of 11 people. Cotral is the world leader in personal custom hearing protection for professionals exposed to noise.",
       "highlights": ["test"]
     },
