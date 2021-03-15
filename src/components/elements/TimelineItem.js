@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function TimelineItem(props) {
+  console.log(props);
   return (
     <div className="timeline-item is-success">
       <div className="timeline-marker is-image is-32x32">
