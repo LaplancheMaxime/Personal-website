@@ -19,7 +19,7 @@ function TimelineItem(props) {
         <h1 className="title is-4">{props.company}</h1>
         <p style={{marginTop: "-25px", marginBottom: "20px"}}>
           {props.position}<br/> {props.website !== "" &&
-            <span><br /><a href={props.website} >{props.website} </a></span>
+            <span><a href={props.website} >{props.website} </a></span>
           }
           </p>
         <p style={{ maxWidth: "25em" }}>{props.summary}</p>
