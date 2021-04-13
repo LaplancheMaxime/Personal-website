@@ -5,11 +5,11 @@
     "picture": "images/mlaplanche.jpeg",
     "x_pictureFallback": "images/jcoelho.jpg",
     "x_title": "Hey there! Glad you're here",
-    "summary": "Going on 4 years of experience in IT. Currently I’m working as a developer exploring the DevOps world. I’m interested in service management, all sorts of automation and developing front-end and back-end applications.",
+    "summary": "Going on 5 years of experience in IT. Currently I’m working as a developer exploring the DevOps world. I’m interested in service management, all sorts of automation and developing front-end and back-end applications.",
     "location": {
       "country": "France",
       "countryCode": "FR",
-      "region": "Normandy"
+      "region": "Vendée"
     },
     "profiles": [
       {
@@ -46,7 +46,7 @@
     {
       "company": "MLTech",
       "position": "Self-employed",
-      "website": "https://mltech.fr/",
+      "website": "https://www.mltech.fr/",
       "startDate": "2020-12-16",
       "endDate": "",
       "summary": "Having the desire to undertake I decided to launch my activity in the development and IT training.",
