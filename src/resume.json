@@ -5,7 +5,7 @@
     "picture": "images/mlaplanche.jpeg",
     "x_pictureFallback": "images/jcoelho.jpg",
     "x_title": "Hey there! Glad you're here",
-    "summary": "Going on 5 years of experience in IT. Currently I’m working as a developer exploring the DevOps world. I’m interested in service management, all sorts of automation and developing front-end and back-end applications.",
+    "summary": "Going on 6 years of experience in IT. Currently I’m working as a developer exploring the DevOps world. I’m interested in service management, all sorts of automation and developing front-end and back-end applications.",
     "location": {
       "country": "France",
       "countryCode": "FR",
@@ -44,6 +44,15 @@
   },
   "work": [
     {
+      "company": "ENI Ecole Informatique",
+      "position": "Instructional coach in IT",
+      "website": "https://www.eni-ecole.fr",
+      "startDate": "2021-06-01",
+      "endDate": "",
+      "summary": "Coach for IT training. Online or in person from the Nantes campus.",
+      "highlights": []
+    },
+    {
       "company": "MLTech",
       "position": "Self-employed",
       "website": "https://www.mltech.fr/",
@@ -59,14 +68,14 @@
       "startDate": "2016-09-05",
       "endDate": "2020-12-15",
       "summary": "Full stack and DevOps developer in a team of 11 people. Cotral is the world leader in personal custom hearing protection for professionals exposed to noise.",
-      "highlights": ["test"]
+      "highlights": []
     },
     {
       "company": "Institut Nationale des Unités Mobiles de Premiers Secours",
       "position": "Associative IT manager & developer",
       "website": "https://www.umps.fr",
       "startDate": "2016-09-05",
-      "endDate": "",
+      "endDate": "2021-07-01",
       "summary": "Non-profit association specialized in event first aid and assistance to the population. We take care of the creation and maintenance of business software.",
       "highlights": []
     },
