@@ -9,7 +9,7 @@ services:
       - "LETSENCRYPT_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr)"
+      - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr`)"
       - "traefik.http.routers.personalwebsite.tls.certresolver=myresolver"
     networks:
       - traefik_traefik
