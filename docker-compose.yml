@@ -7,6 +7,10 @@ services:
     environment:
       - "VIRTUAL_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
       - "LETSENCRYPT_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr)"
+      - "traefik.http.routers.portainer.tls.certresolver=myresolver"
     networks:
       - nginx-proxy
       - default-network
