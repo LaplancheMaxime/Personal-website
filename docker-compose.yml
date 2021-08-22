@@ -12,15 +12,15 @@ services:
       - "traefik.http.routers.portainer.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr)"
       - "traefik.http.routers.portainer.tls.certresolver=myresolver"
     networks:
-      - nginx-proxy
+      - traefik_traefik
       - default-network
     tty: true
     container_name: personal-website
 
 networks:
   default-network:
-  nginx-proxy:
+  traefik_traefik:
     external: true
   default:
     external:
-      name : nginx-proxy
+      name : traefik_traefik
