@@ -10,7 +10,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr`)"
-      - "traefik.http.routers.personalwebsite.tls.certresolver=myresolver"
+      #- "traefik.http.routers.personalwebsite.tls.certresolver=myresolver"
     networks:
       - traefik_traefik
       - default-network
