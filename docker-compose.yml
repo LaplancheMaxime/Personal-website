@@ -11,6 +11,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr`)"
       - "traefik.http.routers.personalwebsite.entrypoints=web"
+      - "traefik.http.services.personalwebsite.loadbalancer.server.port=80"
     networks:
       - traefik_traefik
       - default-network
