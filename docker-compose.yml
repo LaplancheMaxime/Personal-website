@@ -9,8 +9,8 @@ services:
       - "LETSENCRYPT_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`,`www.maxime-laplanche.fr`)"
-      - "traefik.http.routers.personalwebsite.entrypoints=web"
+      - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`)"
+      - "traefik.http.routers.personalwebsite.entrypoints=websecure"
       - "traefik.http.services.personalwebsite.loadbalancer.server.port=80"
     networks:
       - traefik_traefik
@@ -22,6 +22,3 @@ networks:
   default-network:
   traefik_traefik:
     external: true
-  default:
-    external:
-      name : traefik_traefik
