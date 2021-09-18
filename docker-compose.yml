@@ -10,6 +10,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`)"
+      - "traefik.http.routers.nas.entrypoints=http"
     networks:
       - traefik_traefik
       - default-network
