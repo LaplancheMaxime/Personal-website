@@ -7,16 +7,19 @@ services:
     environment:
       - "VIRTUAL_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
       - "LETSENCRYPT_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.personalwebsite.rule=Host(`maxime-laplanche.fr`)"
+      - "traefik.http.services.personalwebsite.loadbalancer.server.port=80"
+      - "traefik.http.routers.personalwebsite.tls=true"
+      - "traefik.docker.network=traefik_traefik"
     networks:
-      - nginx-proxy
+      - traefik_traefik
       - default-network
     tty: true
     container_name: personal-website
 
 networks:
   default-network:
-  nginx-proxy:
+  traefik_traefik:
     external: true
-  default:
-    external:
-      name : nginx-proxy
