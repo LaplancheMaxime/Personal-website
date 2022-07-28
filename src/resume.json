@@ -34,7 +34,7 @@
     "contacts": [
       {
         "x_icon": "fas fa-envelope",
-        "text": "laplanche.maxime@outlook.fr"
+        "text": "maxime.laplanche@outlook.com"
       },
       {
         "x_icon": "fas fa-phone-alt",
@@ -44,11 +44,20 @@
   },
   "work": [
     {
+      "company": "SEPRO Group",
+      "position": "Software developer",
+      "website": "https://www.sepro-group.com",
+      "startDate": "2022-09-19",
+      "endDate": "",
+      "summary": "Founded in 1973, SEPRO was one of the first companies in the world to develop CNC Cartesian robots for injection molding machines.",
+      "highlights": []
+    },
+    {
       "company": "ENI Ecole Informatique",
       "position": "Instructional coach in IT",
       "website": "https://www.eni-ecole.fr",
       "startDate": "2021-06-01",
-      "endDate": "",
+      "endDate": "2022-07-01",
       "summary": "Coach for IT training. Online or in person from the Nantes campus.",
       "highlights": []
     },
