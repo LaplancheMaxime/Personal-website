@@ -10,8 +10,8 @@ services:
       - "LETSENCRYPT_HOST=maxime-laplanche.web4me.fr,maxime-laplanche.fr,www.maxime-laplanche.fr"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mltechapp.rule=Host(`maxime-laplanche.fr`)"
-      - "traefik.http.middlewares.mltechappheaders.headers.accessControlMaxAge=604800"
+      - "traefik.http.routers.maximelaplancheapp.rule=Host(`maxime-laplanche.fr`)"
+      - "traefik.http.middlewares.maximelaplancheappheaders.headers.accessControlMaxAge=604800"
 
     networks:
       - server_stack_traefik
