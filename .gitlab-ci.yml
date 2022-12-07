@@ -1,3 +1,4 @@
+---
 image: node:alpine
 
 # Speed up builds
@@ -14,44 +15,19 @@ stages:
     - deploy
     - deploy_server
 
-#variables:
-    # Configure mysql service (https://hub.docker.com/_/mysql/)
-
-build:
+docker:build:develop:
   stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN registry.gitlab.com
   script:
-    - npm install
-    - npm run lint
-  except:
-    - master
-
-build:master:
-  stage: build
-  script:
-    - npm install
+    - docker build --pull -t "registry.gitlab.com/mlaplanche/personal-website:develop" .
+    - docker push -a registry.gitlab.com/mlaplanche/personal-website
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"'
-      when: always
-
-docker:build:
-    stage: docker
-    image: docker:19.03.11
-    services:
-      - docker:19.03.11-dind
-    dependencies:
-      - build
-    before_script:
-      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    script:
-      - docker build -f Dockerfile.prod --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
-      - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-    after_script:
-      - docker logout $CI_REGISTRY
-    rules:
-      - if: '$CI_COMMIT_REF_NAME != "master"'
-        when: on_success
-      - if: '$CI_COMMIT_REF_NAME == "develop"'
-        when: manual
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: on_success
 
 sonarcloud-check:
   stage: quality_gate
@@ -72,58 +48,34 @@ sonarcloud-check:
     - master
     - develop
 
-master:docker:latest:
-    stage: deploy
-    image: docker:19.03.11
-    variables:
-      GIT_STRATEGY: none
-    dependencies:
-      - docker:build
-      - build:master
-    services:
-      - docker:dind
-    before_script:
-      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    script:
-      - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-      - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
-      - docker push $CI_REGISTRY_IMAGE:latest
-    rules:
-      - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"'
-        when: on_success
-
-
-docker:push:tag:
-  image: docker:19.03.11
-  variables:
-    # Again, we do not need the source code here. Just playing with Docker.
-    GIT_STRATEGY: none
-  stage: deploy
-  only:
-    # We want this job to be run on tags only.
-    - tags
+docker:build:main:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
   before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN registry.gitlab.com
   script:
-    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-  except:
-    - master
+    - docker build -f Dockerfile.prod --pull -t "registry.gitlab.com/mlaplanche/personal-website:main" -t "registry.gitlab.com/mlaplanche/personal-website:latest" .
+    - docker push -a registry.gitlab.com/mlaplanche/personal-website
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: on_success
 
-docker:deploy:
+
+docker:deploy:main:
   stage: deploy_server
-  image: registry.gitlab.com/mlaplanche/gestionformation-sdis14/docker-compose:19.03.11
+  image: tiangolo/docker-with-compose
   before_script:
-    - docker info
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN registry.gitlab.com
+  needs: ["docker:build:main"]
   script:
     - docker-compose -f docker-compose.yml build
     - docker-compose -f docker-compose.yml pull
-    - docker-compose -f docker-compose.yml up -d
+    - docker-compose -f docker-compose.yml -p "personal-website" up -d
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
       when: on_success
   tags:
     - docker
-    - personal
+    - production
